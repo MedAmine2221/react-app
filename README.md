@@ -1,6 +1,8 @@
 # Yoga App
 
 Une application moderne de yoga construite avec React, TypeScript et Tailwind CSS, offrant une expérience utilisateur responsive et élégante.
+![Yoga Website Banner](public/react-app.png)
+![Yoga Website Banner](public/react-app2.png)
 
 ## 🚀 Fonctionnalités
 
