@@ -8,9 +8,18 @@ import InstagramSection from '@/components/InstagramSection';
 import AnytimeSection from '@/components/AnytimeSection';
 import Newsletter from '@/components/NewsletterSection';
 import Footer from '@/components/Footer';
+import MotivationalQuotes from '@/components/MotivationalQuotes';
 
 const Home = () => {
-  const [theme, setTheme] = useState('light');
+  // Récupérer le thème depuis le localStorage ou utiliser 'light' par défaut
+  const [theme, setTheme] = useState(() => {
+    // Vérifier si window est défini (côté client)
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      return savedTheme || 'light';
+    }
+    return 'light';
+  });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [emailSubscribed, setEmailSubscribed] = useState(false);
   const [email, setEmail] = useState('');
@@ -22,6 +31,22 @@ const Home = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
   };
+
+  // Save theme to localStorage on every change
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  // Apply theme on initial load
+  useEffect(() => {
+  // Check system preference on initial load
+    if (typeof window !== 'undefined' && !localStorage.getItem('theme')) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        setTheme('dark');
+      }
+    }
+  }, []);
 
   // Navbar background on scroll
   useEffect(() => {
@@ -93,12 +118,15 @@ const Home = () => {
 
       <Hero isDark={isDark} />
 
+      <MotivationalQuotes isDark={isDark} />
       {/* Yoga Pose Section */}
 
       <Pose isDark={isDark} />
 
       {/* Bring Happiness Section */}
       <BringSection isDark = {isDark} />
+
+
 
       {/* Anytime Section */}
       <AnytimeSection isDark={isDark} />
@@ -125,6 +153,9 @@ const Home = () => {
           }
         }
         
+        .animate-fadeIn {
+          animation: fadeIn 0.5s ease-out forwards;
+        }
         .animate-fadeInUp {
           animation: fadeInUp 0.6s ease-out forwards;
         }
