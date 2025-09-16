@@ -20,8 +20,8 @@ Une application moderne de yoga construite avec React, TypeScript et Tailwind CS
 
 ## 📦 Installation
 ```bash
-git clone <votre-repo>
-cd yoga-app
+git clone https://github.com/MedAmine2221/react-app
+cd react-app
 npm install
 npm run dev
 ```
